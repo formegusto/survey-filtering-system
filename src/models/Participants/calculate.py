@@ -72,6 +72,7 @@ def congestion(value):
             err = value - 5
         return 20 - (err * 2)
 
+
 def skin_temperature(value):
     if ((value >= 30) & (value <= 34)):
         return 20
@@ -85,6 +86,7 @@ def skin_temperature(value):
 
 
 calculate = {
-    "temperature": temperature,
-
+    'temperature': temperature, 'humidity': humidity,'light': light, 
+    'pm2.5': pm2_5, 'noise': noise,'odor': odor, 
+    'congestion': congestion, 'skin temparatire': skin_temperature
 }
