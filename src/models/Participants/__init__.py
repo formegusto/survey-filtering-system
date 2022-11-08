@@ -42,7 +42,7 @@ class Participants:
                 if feature in self.importance_features:
                     scores = np.append(scores, calculate[feature](value))
                 else:
-                    scores = np.append(scores, ran.randrange(10, 21))
+                    scores = np.append(scores, ran.randrange(15, 21))
         self.feature_values = np.append(
             self.feature_values, values).reshape(-1, FEATURE_SIZE)
         self.scores = np.append(self.scores, scores).reshape(-1, FEATURE_SIZE)

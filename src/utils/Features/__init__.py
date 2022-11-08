@@ -2,6 +2,7 @@ import numpy as np
 import random as ran
 from ...common import FEATURE_NAME_ENG, FEATURE_SIZE
 
+
 def generate_feature_values():
     temperature = ran.randrange(10, 33)    # 온도 10~32
     humidity = ran.randrange(30, 81)  # 습도 30 ~ 80
@@ -18,4 +19,10 @@ def generate_feature_values():
 
 def ran_feature_columns():
     feature_cols = FEATURE_NAME_ENG[1:]
-    return np.random.choice(feature_cols, ran.randrange(1, FEATURE_SIZE), False)
+    _features = np.random.choice(
+        feature_cols, ran.randrange(1, FEATURE_SIZE), False)
+    features = np.array([])
+    for f in FEATURE_NAME_ENG:
+        if f in _features:
+            features = np.append(features, f)
+    return features
