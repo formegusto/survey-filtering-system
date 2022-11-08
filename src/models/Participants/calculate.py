@@ -1,7 +1,5 @@
 import math as mt
 
-# 설문 점수 계산 모듈
-
 
 def temperature(value):
     if (value >= 18) & (value <= 20):

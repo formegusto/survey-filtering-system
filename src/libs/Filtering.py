@@ -10,7 +10,8 @@ class Filtering:
 
         chk_mae = self.rfModel.record[:, 4]
         chk_mae = chk_mae.astype(np.float64)
-        filters = chk_mae == 0
+        filters = np.array([(_.feature_importances_).sum() ==
+                            0.0 for _ in self.rfModel.models])
         chk_mae = chk_mae[~filters]
         user_idx = user_idx[~filters]
 
