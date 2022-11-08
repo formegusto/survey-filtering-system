@@ -90,10 +90,3 @@ calculate = {
     'pm2.5': pm2_5, 'noise': noise, 'odor': odor,
     'congestion': congestion, 'skin temparature': skin_temperature
 }
-
-
-# calculate = {
-#     'temp':temperature, 'hum': humidity,
-#     'lux': light, 'dust': pm2_5, 'db': noise, 'smell':odor,
-#     'congestion': congestion, 'skin':skin_temperature
-# }
