@@ -1,13 +1,17 @@
 import random as ran
 import numpy as np
-from ...common import FEATURE_SIZE
+from ...common import FEATURE_SIZE, FEATURE_NAME_ENG
+from .calculate import calculate
 
 
 class Participants:
     def __init__(self, user_id, importance_features, not_sincerity_type=None):
         self.user_id = user_id
         self.importance_features = importance_features
-        self.survey = None
+
+        self.feature_values = np.array([])
+        self.scores = np.array([])
+        self.survey = np.array([])
 
         if len(importance_features) == 0:
             if not_sincerity_type is None:
@@ -17,9 +21,12 @@ class Participants:
         else:
             self.type = "sincerity"
 
-    def survey(self, features):
+    def survey(self, values):
         # features
-        # [0] temperature, [1] humidity, [2]
+        # [0] temperature, [1] humidity, [2] light,
+        # [3] pm2.5, [4] noise, [5] odor,
+        # [6] congestion, [7] skin temperature
+        features = FEATURE_NAME_ENG[1:]
         scores = np.array()
 
         if "not_sincerity" in self.type:
@@ -30,15 +37,14 @@ class Participants:
                 for idx in range(0, FEATURE_SIZE):
                     scores[idx] = scores = np.append(scores, ran.randrange(21))
         else:
-            if 'temperature' in self.importance_features:
-                if (temp >= 18) & (temp <= 20):
-                    scores = np.append(20)
+            for idx, value in enumerate(values):
+                feature = features[idx]
+                if feature in self.importance_features:
+                    scores = np.append(scores, calculate[feature](value))
                 else:
-                    err = 0
-                    if temp <= 18:
-                        err = 18 - temp
-                    else:
-                        err = temp - 20
-                    _score[0] = 20 - round(err / 2)
-            else:
-                _score[0] = ran.randrange(15, 21)
+                    scores = np.append(scores, ran.randrange(10, 21))
+
+        self.feature_values = np.append(
+            self.feature_values, values).reshape(-1, FEATURE_SIZE)
+        self.scores = np.append(self.scores, scores).reshape(-1, FEATURE_SIZE)
+        self.survey = np.append(self.survey, scores.sum())
